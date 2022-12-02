@@ -80,7 +80,16 @@ WSGI_APPLICATION = 'MyNoSQLProj.wsgi.application'
 #     }
 # }
 
+DB_NAME = ''
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'djongo',
+        'NAME': '',
+        'ENFORCE_SCHEMA': False,
+        'CLIENT': {'host': ''}
+    }
+}
 
 
 # Password validation
