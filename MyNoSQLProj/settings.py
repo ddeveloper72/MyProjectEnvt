@@ -19,6 +19,13 @@ environ.Env.read_env()
 
 from pathlib import Path
 
+# import pymongo
+import pymongo
+
+# Import certifi for mongo url
+from pymongo import MongoClient
+import certifi
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -32,7 +39,7 @@ SECRET_KEY = 'django-insecure-n+h$@u*e7t&qpbw2o_)gbv9)rab8$*sp5o2-1isp7+b#@y$vx7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -44,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'MyNoSQLProj'
 ]
 
 MIDDLEWARE = [
@@ -78,23 +86,19 @@ WSGI_APPLICATION = 'MyNoSQLProj.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+# Docs demonstrating the db connections for mongoDb
+# https://www.mongodb.com/compatibility/mongodb-and-django
+# https://www.digitalocean.com/community/tutorials/how-to-connect-a-django-app-to-mongodb-with-pymongo
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+client = pymongo.MongoClient(env('MONGO_URI'), tlsCAFile=certifi.where())
+db = client.test
 
-DB_NAME = ''
 
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': '',
+        'NAME': 'employees',
         'ENFORCE_SCHEMA': False,
-        'CLIENT': {'host': ''}
     }
 }
 
