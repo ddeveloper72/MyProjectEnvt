@@ -90,8 +90,8 @@ WSGI_APPLICATION = 'MyNoSQLProj.wsgi.application'
 # https://www.mongodb.com/compatibility/mongodb-and-django
 # https://www.digitalocean.com/community/tutorials/how-to-connect-a-django-app-to-mongodb-with-pymongo
 
-client = pymongo.MongoClient(env('MONGO_URI'), tlsCAFile=certifi.where())
-db = client.test
+connect_string = pymongo.MongoClient(env('MONGO_URI'))
+my_client = pymongo.MongoClient(connect_string, tlsCAFile=certifi.where())
 
 
 DATABASES = {
