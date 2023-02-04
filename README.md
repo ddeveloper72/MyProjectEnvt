@@ -48,4 +48,4 @@ db = client['task_manager']
 Once the connection was confirmed the first view was created.
 
 The template rendering for `view_all_tasks`
-![Task Manager](https://github.com/ddeveloper72/MyProjectEnvt/blob/../../../../../MyNoSQLProj/static/img/all_tasks.jpg "Fig 1 showing Task Manager")
+![Task Manager](https://github.com/ddeveloper72/MyProjectEnvt/blob/master/MyNoSQLProj/static/img/all_tasks.jpg "Fig 1 showing Task Manager")
