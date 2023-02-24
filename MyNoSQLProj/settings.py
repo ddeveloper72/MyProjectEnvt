@@ -92,16 +92,16 @@ WSGI_APPLICATION = 'MyNoSQLProj.wsgi.application'
 # https://www.digitalocean.com/community/tutorials/how-to-connect-a-django-app-to-mongodb-with-pymongo
 
 #  Connection to MongoDB
-connect_string = env('MONGO_URI')
-my_client = pymongo.MongoClient(connect_string, tlsCAFile=certifi.where())
+# connect_string = env('MONGO_URI')
+# my_client = pymongo.MongoClient(connect_string, tlsCAFile=certifi.where())
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'employees',
-        'ENFORCE_SCHEMA': False,
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'employees',
+#         'ENFORCE_SCHEMA': False,
+#     }
+# }
 
 
 # Password validation
