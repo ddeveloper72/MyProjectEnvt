@@ -27,15 +27,14 @@ collection = db.tasks
 
 # find all tasks
 def view_all_tasks(request):
-    tasks = collection.find()
-    context = {'tasks': tasks}
+    _tasks = collection.find()
+    context = {'tasks': _tasks}
     return render(request, 'tasks.html', context)
 
 
 def edit_task(request, task_id):
-    _task = db.tasks.find_one()
-    task = str(_task['task_id'])
+    _task = db.tasks.find_one({'task_id': task_id})
     all_categories = db.categories.find()
 
     return render(request, 'edit_task.html',
-                  {'task': task, 'categories': all_categories})
+                  {'task': _task, 'categories': all_categories})
