@@ -17,14 +17,25 @@ connect_string = env('MONGO_URI')
 
 
 # Configure the connection string with certifi
-client = pymongo.MongoClient(connect_string, tlsCAFile=certifi.where())
+client = MongoClient(connect_string, tlsCAFile=certifi.where())
 
 # Define the database name
-db = client['task_manager']
+db = client.task_manager
+
+collection = db.tasks
 
 
 # find all tasks
 def view_all_tasks(request):
-    tasks = db.tasks.find()
+    tasks = collection.find()
+    context = {'tasks': tasks}
+    return render(request, 'tasks.html', context)
 
-    return render(request, 'tasks.html', {'tasks': tasks})
+
+def edit_task(request, task_id):
+    _task = db.tasks.find_one()
+    task = str(_task['task_id'])
+    all_categories = db.categories.find()
+
+    return render(request, 'edit_task.html',
+                  {'task': task, 'categories': all_categories})
