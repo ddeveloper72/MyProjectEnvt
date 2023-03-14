@@ -2,7 +2,7 @@
 {% load tagger %}
 {% block content %}
 
-<h3>Edit Task! - ID: {{task|mongo_id}}</h3>
+<h3>Edit Task!</h3>
 <div class="row">
   <form action="{% url 'update_task' task|mongo_id %}" method="POST" class="col s12">
     {% csrf_token %}
