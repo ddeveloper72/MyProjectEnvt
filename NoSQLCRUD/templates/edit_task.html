@@ -47,10 +47,10 @@
     <div class="row">
       <div class="switch">
         <label>
-          {% if task.is_urgent %}
-          <input id="is_urgent" name="is_urgent" type="checkbox" checked value="{{task.is_urgent}}">
+          {% if task.is_urgent == 'on' %}
+          <input id="is_urgent" name="is_urgent" type="checkbox" checked>
           {% else %}
-          <input id="is_urgent" name="is_urgent" type="checkbox" value="{{task.is_urgent}}">
+          <input id="is_urgent" name="is_urgent" type="checkbox">
           {% endif %}
           <span class="lever"></span>
           Is Urgent
