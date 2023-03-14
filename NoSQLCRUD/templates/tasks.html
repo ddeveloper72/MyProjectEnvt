@@ -19,7 +19,8 @@
             </div>
         </div>
         <div class="collapsible-body">
-            <span>{{task.task_description}} {{ task|mongo_id }}</span>
+            <p><strong>Mongo ObjectID: </strong>{{ task|mongo_id }}</p>
+            <p><strong>Description</strong> {{task.task_description}}</p>
         </div>
     </li>
     {% endfor %}
