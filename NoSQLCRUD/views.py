@@ -7,6 +7,9 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from bson import ObjectId
 
+from django. shortcuts import render
+from . import forms
+
 # Import environmental variables
 from MyNoSQLProj.settings import environ
 env = environ.Env()
@@ -45,17 +48,27 @@ def add_task(request):
 
 # insert a new task
 def insert_task(request):
-    tasks = collection
-    new_task = {
-        'task_name': request.POST.get('task_name', ''),
-        'category_name': request.POST.get('category_name', ''),
-        'task_description': request.POST.get('task_description', ''),
-        'due_date': request.POST.get('due_date', ''),
-        'is_urgent': request.POST.get('is_urgent', 'off')
-        # don't forget to set the default value to 'off'
-    }
-    tasks.insert_one(new_task)
-    return HttpResponseRedirect(reverse('get_tasks'))
+
+    if request.method == 'POST':
+        form = forms.InsertTaskForm(request.POST)
+        if form.is_valid():
+            tasks = collection
+            new_task = {
+                'task_name': request.POST.get('task_name', ''),
+                'category_name': request.POST.get('category_name', ''),
+                'task_description': request.POST.get('task_description', ''),
+                'due_date': request.POST.get('due_date', ''),
+                'is_urgent': request.POST.get('is_urgent', 'off')
+                # don't forget to set the default value to 'off'
+            }
+            tasks.insert_one(new_task)
+            return HttpResponseRedirect(reverse('get_tasks'))
+        else:
+            print('Error: Form Invalid')
+    else:
+        form = forms.InsertTaskForm()
+    return render(request, 'add_task.html', {'form': form})
+
 
 
 # edit a task
