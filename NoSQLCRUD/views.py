@@ -47,11 +47,12 @@ def add_task(request):
 def insert_task(request):
     tasks = collection
     new_task = {
-        'task_name': request.POST['task_name'],
-        'category_name': request.POST['category_name'],
-        'task_description': request.POST['task_description'],
-        'due_date': request.POST['due_date'],
-        'is_urgent': request.POST['is_urgent']
+        'task_name': request.POST.get('task_name', ''),
+        'category_name': request.POST.get('category_name', ''),
+        'task_description': request.POST.get('task_description', ''),
+        'due_date': request.POST.get('due_date', ''),
+        'is_urgent': request.POST.get('is_urgent', 'off')
+        # don't forget to set the default value to 'off'
     }
     tasks.insert_one(new_task)
     return HttpResponseRedirect(reverse('get_tasks'))
@@ -70,10 +71,10 @@ def update_task(request, task_id):
     tasks = collection
     tasks.replace_one({'_id': ObjectId(task_id)},
                       {
-        'task_name': request.POST['task_name'],
-        'category_name': request.POST['category_name'],
-        'task_description': request.POST['task_description'],
-        'due_date': request.POST['due_date'],
+        'task_name': request.POST.get('task_name', ''),
+        'category_name': request.POST.get('category_name', ''),
+        'task_description': request.POST.get('task_description', ''),
+        'due_date': request.POST.get('due_date', ''),
         'is_urgent': request.POST.get('is_urgent', 'off')
         # don't forget to set the default value to 'off'
     })
