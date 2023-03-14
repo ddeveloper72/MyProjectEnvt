@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load tagger %}
 {% block content %}
 
 <ul class="collapsible" data-collapsible="accordion">
@@ -8,16 +9,17 @@
             <div class="col s3">
                 <i class="material-icons">expand_more</i>
 
-                <a href="#" class="waves-effect waves-light btn btn_small">Done</a>
+                <a href="{% url 'delete_task' task|mongo_id %}" class="waves-effect waves-light btn btn_small">Done</a>
 
-                <a href="{% url 'edit_task' task.task_id %}" class="waves-effect waves-light btn btn_small blue">Edit</a>
+                <a href="{% url 'edit_task' task|mongo_id %}"
+                    class="waves-effect waves-light btn btn_small blue">Edit</a>
             </div>
             <div class="task_header col s9">
                 <strong>{{task.task_name}}</strong> - {{task.due_date}}
             </div>
         </div>
         <div class="collapsible-body">
-            <span>{{task.task_description}}</span>
+            <span>{{task.task_description}} {{ task|mongo_id }}</span>
         </div>
     </li>
     {% endfor %}
