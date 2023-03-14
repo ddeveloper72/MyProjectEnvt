@@ -74,7 +74,8 @@ def update_task(request, task_id):
         'category_name': request.POST['category_name'],
         'task_description': request.POST['task_description'],
         'due_date': request.POST['due_date'],
-        'is_urgent': request.POST['is_urgent']
+        'is_urgent': request.POST.get('is_urgent', 'off')
+        # don't forget to set the default value to 'off'
     })
     return HttpResponseRedirect(reverse('get_tasks'))
 
