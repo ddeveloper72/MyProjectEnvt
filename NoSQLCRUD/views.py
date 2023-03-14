@@ -115,7 +115,9 @@ def update_category(request, category_id):
 # insert a new category
 def insert_category(request):
     categories = db.categories
-    new_category = {'category_name': request.POST['category_name']}
+    new_category = {'category_name': request.POST['category_name'],
+                    'category_description': request.POST['category_description'],
+                    }
     categories.insert_one(new_category)
     return HttpResponseRedirect(reverse('get_categories'))
 
