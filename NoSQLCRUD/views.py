@@ -134,13 +134,27 @@ def edit_category(request, category_id):
 
 # update a category
 def update_category(request, category_id):
-    categories = db.categories
-    categories.replace_one({'_id': ObjectId(category_id)},
-                           {
-        'category_name': request.POST['category_name'],
-        'category_description': request.POST['category_description'],
-    })
-    return HttpResponseRedirect(reverse('get_categories'))
+    if request.method == 'POST':
+        form = forms.InsertCategoryForm(request.POST)
+        if form.is_valid():
+            categories = db.categories
+            categories.replace_one({'_id': ObjectId(category_id)},
+                                   {
+                'category_name': request.POST['category_name'],
+                'category_description': request.POST['category_description'],
+            })
+            return HttpResponseRedirect(reverse('get_categories'))
+        else:
+            # cancel updating the category update form
+            if "cancel" in request.POST:
+                return HttpResponseRedirect(reverse('get_categories'))
+
+        print('🚫 Error: Form Invalid, ID: ' + category_id)
+    else:
+        form = forms.InsertCategoryForm()
+
+    # remain on the same page
+    return HttpResponseRedirect(reverse('edit_category', args=(category_id,)))
 
 
 # insert a new category
