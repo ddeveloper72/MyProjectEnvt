@@ -4,7 +4,7 @@ from pymongo import MongoClient
 from django.template import loader
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from bson import ObjectId
 
 from django. shortcuts import render
@@ -64,11 +64,14 @@ def insert_task(request):
             tasks.insert_one(new_task)
             return HttpResponseRedirect(reverse('get_tasks'))
         else:
-            print('Error: Form Invalid')
+            # permit user to cancel using the form
+            if "cancel" in request.POST:
+                return HttpResponseRedirect(reverse('get_tasks'))
+
+            print('🚫 Error: Form Invalid')
     else:
         form = forms.InsertTaskForm()
     return render(request, 'add_task.html', {'form': form})
-
 
 
 # edit a task
