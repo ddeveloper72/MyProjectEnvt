@@ -21,13 +21,13 @@
                     <li><a href="{% url 'add_task' %}">New Task</a></li>
                     <li><a href="{% url 'get_categories' %}">Manage Categories</a></li>
                 </ul>
-                <ul class="side-nav" id="mobile-demo">
-                    <li><a href="{% url 'get_tasks' %}">Home</a></li>
-                    <li><a href="{% url 'add_task' %}">New Task</a></li>
-                    <li><a href="{% url 'get_categories' %}">Manage Categories</a></li>
-                </ul>
             </div>
         </nav>
+        <ul class="side-nav" id="mobile-demo">
+            <li><a href="{% url 'get_tasks' %}">Home</a></li>
+            <li><a href="{% url 'add_task' %}">New Task</a></li>
+            <li><a href="{% url 'get_categories' %}">Manage Categories</a></li>
+        </ul>
     </header>
     <div class="container">
         {% block content %}
