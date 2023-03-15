@@ -84,17 +84,31 @@ def edit_task(request, task_id):
 
 # update a task
 def update_task(request, task_id):
-    tasks = collection
-    tasks.replace_one({'_id': ObjectId(task_id)},
-                      {
-        'task_name': request.POST.get('task_name', ''),
-        'category_name': request.POST.get('category_name', ''),
-        'task_description': request.POST.get('task_description', ''),
-        'due_date': request.POST.get('due_date', ''),
-        'is_urgent': request.POST.get('is_urgent', 'off')
-        # don't forget to set the default value to 'off'
-    })
-    return HttpResponseRedirect(reverse('get_tasks'))
+    if request.method == 'POST':
+        form = forms.InsertTaskForm(request.POST)
+        if form.is_valid():
+            tasks = collection
+            tasks.replace_one({'_id': ObjectId(task_id)},
+                              {
+                'task_name': request.POST.get('task_name', ''),
+                'category_name': request.POST.get('category_name', ''),
+                'task_description': request.POST.get('task_description', ''),
+                'due_date': request.POST.get('due_date', ''),
+                'is_urgent': request.POST.get('is_urgent', 'off')
+                # don't forget to set the default value to 'off'
+            })
+            return HttpResponseRedirect(reverse('get_tasks'))
+        else:
+            # cancel updating the task update form
+            if "cancel" in request.POST:
+                return HttpResponseRedirect(reverse('get_tasks'))
+
+        print('🚫 Error: Form Invalid, ID: ' + task_id)
+    else:
+        form = forms.InsertTaskForm()
+
+    # remain on the same page
+    return HttpResponseRedirect(reverse('edit_task', args=(task_id,)))
 
 
 # delete a task
