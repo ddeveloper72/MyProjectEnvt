@@ -145,12 +145,26 @@ def update_category(request, category_id):
 
 # insert a new category
 def insert_category(request):
-    categories = db.categories
-    new_category = {'category_name': request.POST['category_name'],
-                    'category_description': request.POST['category_description'],
-                    }
-    categories.insert_one(new_category)
-    return HttpResponseRedirect(reverse('get_categories'))
+    if request.method == 'POST':
+        form = forms.InsertCategoryForm(request.POST)
+        if form.is_valid():
+            categories = db.categories
+            new_category = {
+                'category_name': request.POST.get('category_name', ''),
+                'category_description': request.POST.get('category_description', ''),
+            }
+            categories.insert_one(new_category)
+            return HttpResponseRedirect(reverse('get_categories'))
+        else:
+            # cancel updating the category update form
+            if "cancel" in request.POST:
+                return HttpResponseRedirect(reverse('get_categories'))
+
+        print('🚫 Error: Form Invalid')
+    else:
+        form = forms.InsertCategoryForm()
+
+    return render(request, 'new_category.html', {'form': form})
 
 
 # add a new category
