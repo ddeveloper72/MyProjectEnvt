@@ -1,3 +1,5 @@
+import ast
+import datetime
 import certifi
 import pymongo
 from pymongo import MongoClient
@@ -45,33 +47,24 @@ def add_task(request):
     return render(request, 'add_task.html',
                   {'categories': all_categories})
 
-
 # insert a new task
+
+
 def insert_task(request):
-
     if request.method == 'POST':
-        form = forms.InsertTaskForm(request.POST)
-        if form.is_valid():
-            tasks = collection
-            new_task = {
-                'task_name': request.POST.get('task_name', ''),
-                'category_name': request.POST.get('category_name', ''),
-                'task_description': request.POST.get('task_description', ''),
-                'due_date': request.POST.get('due_date', ''),
-                'is_urgent': request.POST.get('is_urgent', 'off')
-                # don't forget to set the default value to 'off'
-            }
-            tasks.insert_one(new_task)
-            return HttpResponseRedirect(reverse('get_tasks'))
-        else:
-            # permit user to cancel using the form
-            if "cancel" in request.POST:
-                return HttpResponseRedirect(reverse('get_tasks'))
+        tasks = collection
+        new_task = {
+            'task_name': request.POST.get('task_name', ''),
+            'category_name': request.POST.get('category_name', ''),
+            'task_description': request.POST.get('task_description', ''),
+            'due_date': request.POST.get('due_date', ''),
+            'is_urgent': request.POST.get('is_urgent', 'off'),
+            'created_date': datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S'),
 
-            print('🚫 Error: Form Invalid')
-    else:
-        form = forms.InsertTaskForm()
-    return render(request, 'add_task.html', {'form': form})
+        }
+        tasks.insert_one(new_task)
+        print(new_task)
+        return HttpResponseRedirect(reverse('get_tasks'))
 
 
 # edit a task
@@ -85,30 +78,18 @@ def edit_task(request, task_id):
 # update a task
 def update_task(request, task_id):
     if request.method == 'POST':
-        form = forms.InsertTaskForm(request.POST)
-        if form.is_valid():
-            tasks = collection
-            tasks.replace_one({'_id': ObjectId(task_id)},
-                              {
-                'task_name': request.POST.get('task_name', ''),
-                'category_name': request.POST.get('category_name', ''),
-                'task_description': request.POST.get('task_description', ''),
-                'due_date': request.POST.get('due_date', ''),
-                'is_urgent': request.POST.get('is_urgent', 'off')
-                # don't forget to set the default value to 'off'
-            })
-            return HttpResponseRedirect(reverse('get_tasks'))
-        else:
-            # cancel updating the task update form
-            if "cancel" in request.POST:
-                return HttpResponseRedirect(reverse('get_tasks'))
 
-        print('🚫 Error: Form Invalid, ID: ' + task_id)
-    else:
-        form = forms.InsertTaskForm()
+        tasks = collection
+        tasks.replace_one({'_id': ObjectId(task_id)},
+                          {
+            'task_name': request.POST['task_name'],
+            'category_name': request.POST['category_name'],
+            'task_description': request.POST['task_description'],
+            'due_date': request.POST['due_date'],
+            'is_urgent': request.POST.get('is_urgent', 'off'),
+        })
 
-    # remain on the same page
-    return HttpResponseRedirect(reverse('edit_task', args=(task_id,)))
+    return HttpResponseRedirect(reverse('get_tasks'))
 
 
 # delete a task
