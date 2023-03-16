@@ -4,7 +4,7 @@
 
 <head>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
 
 
@@ -15,7 +15,7 @@
         <nav>
             <div class="nav-wrapper">
                 <a href="{% url 'get_tasks' %}" class="brand-logo">Task Manager</a>
-                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="{% url 'get_tasks' %}">Home</a></li>
                     <li><a href="{% url 'add_task' %}">New Task</a></li>
@@ -23,7 +23,7 @@
                 </ul>
             </div>
         </nav>
-        <ul class="side-nav" id="mobile-demo">
+        <ul class="sidenav" id="mobile-demo">
             <li><a href="{% url 'get_tasks' %}">Home</a></li>
             <li><a href="{% url 'add_task' %}">New Task</a></li>
             <li><a href="{% url 'get_categories' %}">Manage Categories</a></li>
@@ -33,24 +33,9 @@
         {% block content %}
         {% endblock %}
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.collapsible').collapsible();
-            $('select').material_select();
-            $('.button-collapse').sideNav();
-        });
-
-        $('.datepicker').pickadate({
-            selectMonths: true, // Creates a dropdown to control month
-            selectYears: 15, // Creates a dropdown of 15 years to control year,
-            today: 'Today',
-            clear: 'Clear',
-            close: 'Ok',
-            closeOnSelect: false // Close upon selecting a date,
-        });
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+    <script src="{% static 'scripts/scripts.js' %}"></script>
 </body>
 
 </html>
