@@ -52,30 +52,17 @@ def add_task(request):
 
 def insert_task(request):
     if request.method == 'POST':
-        form = forms.InsertTaskForm(request.POST)
-        if form.is_valid():
-            tasks = collection
-            new_task = {
-                'task_name': request.POST.get('task_name', ''),
-                'category_name': request.POST.get('category_name', ''),
-                'task_description': request.POST.get('task_description', ''),
-                'due_date': request.POST.get('due_date', ''),
-                'is_urgent': request.POST.get('is_urgent', 'off'),
-                'created_date': datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S'),
-            }
-            tasks.insert_one(new_task)
-            print(new_task)
-            return HttpResponseRedirect(reverse('get_tasks'))
-        else:
-            # cancel updating the task update form
-            if "cancel" in request.POST:
-                return HttpResponseRedirect(reverse('get_tasks'))
-            else:
-                print('🚫 Error: Form Invalid')
-                all_categories = db.categories.find()
-                return render(request, 'add_task.html', {'categories': all_categories, 'form': form})
-    else:
-        form = forms.InsertTaskForm()
+        tasks = collection
+        new_task = {
+            'task_name': request.POST.get('task_name', ''),
+            'category_name': request.POST.get('category_name', ''),
+            'task_description': request.POST.get('task_description', ''),
+            'due_date': request.POST.get('due_date', ''),
+            'is_urgent': request.POST.get('is_urgent', 'off'),
+            'created_date': datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S'),
+        }
+        tasks.insert_one(new_task)
+        return HttpResponseRedirect(reverse('get_tasks'))
 
 
 # edit a task
@@ -89,18 +76,18 @@ def edit_task(request, task_id):
 # update a task
 def update_task(request, task_id):
     if request.method == 'POST':
-
         tasks = collection
-        tasks.replace_one({'_id': ObjectId(task_id)},
-                          {
-            'task_name': request.POST['task_name'],
-            'category_name': request.POST['category_name'],
-            'task_description': request.POST['task_description'],
-            'due_date': request.POST['due_date'],
-            'is_urgent': request.POST.get('is_urgent', 'off'),
-        })
+        tasks.update_one({'_id': ObjectId(task_id)},
+                         {"$set": {
+                             'task_name': request.POST['task_name'],
+                             'category_name': request.POST['category_name'],
+                             'task_description': request.POST['task_description'],
+                             'due_date': request.POST['due_date'],
+                             'is_urgent': request.POST.get('is_urgent', 'off'),
+                             'updated_date': datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S'),
+                         }})
 
-    return HttpResponseRedirect(reverse('get_tasks'))
+        return HttpResponseRedirect(reverse('get_tasks'))
 
 
 # delete a task
@@ -137,16 +124,9 @@ def update_category(request, category_id):
             })
             return HttpResponseRedirect(reverse('get_categories'))
         else:
-            # cancel updating the category update form
-            if "cancel" in request.POST:
-                return HttpResponseRedirect(reverse('get_categories'))
-
-        print('🚫 Error: Form Invalid, ID: ' + category_id)
-    else:
-        form = forms.InsertCategoryForm()
-
-    # remain on the same page
-    return HttpResponseRedirect(reverse('edit_category', args=(category_id,)))
+            print('🚫 Error: Form Invalid, ID: ' + category_id)
+            form = forms.InsertCategoryForm()
+            return render(request, 'edit_category.html', {'form': form})
 
 
 # insert a new category
@@ -162,15 +142,9 @@ def insert_category(request):
             categories.insert_one(new_category)
             return HttpResponseRedirect(reverse('get_categories'))
         else:
-            # cancel updating the category update form
-            if "cancel" in request.POST:
-                return HttpResponseRedirect(reverse('get_categories'))
-
-        print('🚫 Error: Form Invalid')
-    else:
-        form = forms.InsertCategoryForm()
-
-    return render(request, 'new_category.html', {'form': form})
+            print('🚫 Error: Form Invalid')
+            form = forms.InsertCategoryForm()
+            return render(request, 'new_category.html', {'form': form})
 
 
 # add a new category
