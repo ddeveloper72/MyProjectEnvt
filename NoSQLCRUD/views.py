@@ -52,19 +52,30 @@ def add_task(request):
 
 def insert_task(request):
     if request.method == 'POST':
-        tasks = collection
-        new_task = {
-            'task_name': request.POST.get('task_name', ''),
-            'category_name': request.POST.get('category_name', ''),
-            'task_description': request.POST.get('task_description', ''),
-            'due_date': request.POST.get('due_date', ''),
-            'is_urgent': request.POST.get('is_urgent', 'off'),
-            'created_date': datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S'),
-
-        }
-        tasks.insert_one(new_task)
-        print(new_task)
-        return HttpResponseRedirect(reverse('get_tasks'))
+        form = forms.InsertTaskForm(request.POST)
+        if form.is_valid():
+            tasks = collection
+            new_task = {
+                'task_name': request.POST.get('task_name', ''),
+                'category_name': request.POST.get('category_name', ''),
+                'task_description': request.POST.get('task_description', ''),
+                'due_date': request.POST.get('due_date', ''),
+                'is_urgent': request.POST.get('is_urgent', 'off'),
+                'created_date': datetime.datetime.now().strftime('%d/%m/%Y %H:%M:%S'),
+            }
+            tasks.insert_one(new_task)
+            print(new_task)
+            return HttpResponseRedirect(reverse('get_tasks'))
+        else:
+            # cancel updating the task update form
+            if "cancel" in request.POST:
+                return HttpResponseRedirect(reverse('get_tasks'))
+            else:
+                print('🚫 Error: Form Invalid')
+                all_categories = db.categories.find()
+                return render(request, 'add_task.html', {'categories': all_categories, 'form': form})
+    else:
+        form = forms.InsertTaskForm()
 
 
 # edit a task
