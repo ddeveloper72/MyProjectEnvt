@@ -14,28 +14,28 @@
           <option value="{{cat.category_name}}">{{cat.category_name}}</option>
           {% endfor %}
         </select>
-        <label>Task Category</label>
+        <label for="category_name">Task Category</label>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s12">
         <i class="material-icons prefix">assignment</i>
-        <input id="task_name" name="task_name" type="text" class="validate">
-        <label for="icon_prefix">Task Name</label>
+        <input id="task_name" name="task_name" type="text" class="validate" value="">
+        <label for="task_name">Task Name</label>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s12">
         <i class="material-icons prefix">subject</i>
-        <textarea name="task_description" id="task_description" class="materialize-textarea" /></textarea>
-        <label for="icon_telephone">Task Description</label>
+        <textarea name="task_description" id="task_description" class="materialize-textarea" value="" /></textarea>
+        <label for="task_description">Task Description</label>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s12">
         <i class="material-icons prefix">today</i>
-        <input id="due_date" name="due_date" type="text" class="datepicker" /></input>
-        <label for="icon_prefix">Due Date</label>
+        <input id="due_date" name="due_date" type="text" class="datepicker" value="" /></input>
+        <label for="due_date">Due Date</label>
       </div>
     </div>
     <div class="row">
