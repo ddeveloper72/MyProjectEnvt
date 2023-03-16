@@ -19,14 +19,14 @@
           {% endif%}
           {% endfor %}
         </select>
-        <label>Task Category</label>
+        <label for="category_name">Task Category</label>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s12">
         <i class="material-icons prefix">assignment</i>
-        <input id="task_name" name="task_name" type="text" class="validate" value="{{task.task_name}}">
-        <label for="icon_prefix">Task Name</label>
+        <input id="task_name" name="task_name" type="text" value="{{task.task_name}}">
+        <label for="task_name">Task Name</label>
       </div>
     </div>
     <div class="row">
@@ -34,14 +34,14 @@
         <i class="material-icons prefix">subject</i>
         <textarea name="task_description" id="task_description"
           class="materialize-textarea" />{{task.task_description}}</textarea>
-        <label for="icon_telephone">Task Description</label>
+        <label for="task_description">Task Description</label>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s12">
         <i class="material-icons prefix">today</i>
         <input id="due_date" name="due_date" type="text" class="datepicker" value="{{task.due_date}}" />
-        <label for="icon_prefix">Due Date</label>
+        <label for="due_date">Due Date</label>
       </div>
     </div>
     <div class="row">
@@ -54,7 +54,7 @@
           {% endif %}
           <span class="lever"></span>
           Is Urgent
-        </label>
+        </label for="is_urgent">
       </div>
     </div>
     <div class="row">
