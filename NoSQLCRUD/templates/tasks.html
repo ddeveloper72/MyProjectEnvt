@@ -21,6 +21,8 @@
         <div class="collapsible-body">
             <p><strong>Mongo ObjectID: </strong>{{ task|mongo_id }}</p>
             <p><strong>Description</strong> {{task.task_description}}</p>
+            <p><strong>Date Created: </strong>{{task.created_date}}</p>
+            <p><strong>Date Updated: </strong>{{task.updated_date}}</p>
         </div>
     </li>
     {% endfor %}
