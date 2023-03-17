@@ -40,7 +40,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost',
                  '127.0.0.1',
-                 'mongo-django-crud.heroku.com']
+                 'mongo-django-crud.herokuapp.com']
 
 
 # Application definition
