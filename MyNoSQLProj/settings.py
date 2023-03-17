@@ -9,6 +9,10 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+import certifi
+from pymongo import MongoClient
+import pymongo
+from pathlib import Path
 import os
 
 # Import environmental variables
@@ -18,14 +22,10 @@ import environ
 env = environ.Env()
 environ.Env.read_env()
 
-from pathlib import Path
 
 # import pymongo
-import pymongo
 
 # Import certifi for mongo url
-from pymongo import MongoClient
-import certifi
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -98,8 +98,9 @@ WSGI_APPLICATION = 'MyNoSQLProj.wsgi.application'
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'djongo',
-#         'NAME': 'employees',
+#         'NAME': 'task_manager',
 #         'ENFORCE_SCHEMA': False,
+#         'CLIENT': 'my_client'
 #     }
 # }
 
