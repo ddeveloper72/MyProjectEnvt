@@ -22,6 +22,6 @@ from django.views.generic import RedirectView
 
 # redirect the root URL to the task_manager URL
 urlpatterns = [
-    path('task_manager/', include('NoSQLCRUD.urls')),
+    path('', include('NoSQLCRUD.urls')),
     path('admin/', admin.site.urls)
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
