@@ -1,4 +1,3 @@
-import ast
 import datetime
 import certifi
 import pymongo
