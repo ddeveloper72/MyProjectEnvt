@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+     'whitenoise.runserver_nostatic',
     'NoSQLCRUD'
 ]
 
@@ -147,6 +148,9 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+# serve files directly from their original locations
+WHITENOISE_USE_FINDERS = True
 
 STORAGES = {
     # ...
