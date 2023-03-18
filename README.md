@@ -41,10 +41,10 @@ Next setup is to setup a python virtual environment in the new file directory. I
 ```
 |
 ├──c:\Python\
-         ├── python37\python.exe
-         ├── python38\python.exe
-         ├── python311\python.exe
-
+|        ├── python37\python.exe
+|        ├── python38\python.exe
+|        ├── python311\python.exe
+|
 ```
 
 `C:\<path to your project>\Django_ToDo_2>c:\Python\python311\python -m venv .venv`
