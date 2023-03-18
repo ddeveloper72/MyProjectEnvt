@@ -77,6 +77,12 @@ Once again, the expected outcome is shown in the Django docs.  The MyNoSQLProj a
 
 If not, some debugging may be required.
 
+Once the project is and running, its safe to stop the development server and then create the `NoSQLCRUD` app.
+From the CLI, run `> python manage.py startapp NoSQLCRUD`
+
+Again, refer to the Django docs to follow the steps for connecting the app as well as wiring up the URL paths and registering the new app name in the settings.py file as well as creating a test view to prove as well as demonstrate the connection to the NoSQLCRUD app.
+
+At this point its also a good idea to setup a `.gitignore` if this project is going to be added to GitHub.
 
 ### Secrets: the Django Environ
 
