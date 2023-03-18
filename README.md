@@ -57,9 +57,26 @@ from CMD by running the activate script `.venv\Scripts\activate.bat`
 `C:\<path to your project>\Django_ToDo_2>.venv\Scripts\activate.bat`
 
 You should now be in the the virtual container:
-`(.venv) C:\<path to your project>\Django_ToDo_2>`
+`(.venv) C:\<path to your project>\Django_ToDo>`
 
-See the reference material link above for activating the virtual environment from different CLI editors.
+See the reference material link above for activating the virtual environment using different CLI editors.
+
+### Installing Django & adding the apps
+
+Once the virtual environment is up and running, install Django.  I used `Django 4.1.7`, the latest release at the time of building this project.
+
+The next step is to start a new project.  Please see the [Django docs](https://docs.djangoproject.com/en/4.1/intro/tutorial01/) for more details about starting a project.  This one is called MyNoSQLProj.
+
+From the CLI run `django-admin startproject MyNoSQLProj`
+
+eg  `(.venv) C:\<path to your project>\Django_ToDo>` `django-admin startproject MyNoSQLProj`
+
+Once the project folders have been setup (see the Django docs for help), go ahead and start the server.  To do so, change directory to the project directory (the same directory as the mange.py file) and then from the CLI run `python manage.py runserver`
+
+Once again, the expected outcome is shown in the Django docs.  The MyNoSQLProj application should be running on the development server at `http://127.0.0.1:8000/`
+
+If not, some debugging may be required.
+
 
 ### Secrets: the Django Environ
 
