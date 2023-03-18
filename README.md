@@ -38,11 +38,14 @@ First thing first, create a folder in a file directory where you like to work on
 
 Next setup is to setup a python virtual environment in the new file directory. I use cmd as the default CLI Visual Studio Code, so use vs code to open the the new folder. Another way is to open your command prompt from inside the folder. What we want o do is run python to setup the virtual environment here. I have different versions of python so need to specify which version I want to use for my virtual environment.
 
+```
 |
-|-c:\Python\python37\python.exe
-|----------\python38\python.exe
-|----------\python311\python.exe
-|
+├──c:\Python\
+         ├── python37\python.exe
+         ├── python38\python.exe
+         ├── python311\python.exe
+
+```
 
 `C:\<path to your project>\Django_ToDo_2>c:\Python\python311\python -m venv .venv`
 
