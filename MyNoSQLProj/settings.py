@@ -44,8 +44,7 @@ SECRET_KEY = 'django-insecure-n+h$@u*e7t&qpbw2o_)gbv9)rab8$*sp5o2-1isp7+b#@y$vx7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = development
 
-ALLOWED_HOSTS = ['localhost',
-                 '127.0.0.1',
+ALLOWED_HOSTS = [os.environ.get('localhost', '127.0.0.1'),
                  'mongo-django-crud.herokuapp.com']
 
 
