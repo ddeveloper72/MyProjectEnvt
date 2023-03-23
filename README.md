@@ -112,7 +112,7 @@ environ.Env.read_env()
 
 ## Configure he Django Settings
 
-The next step is to comment out all the Data Base configuration in the `setting.py` file. The application views in this project connect directly to the database and is no longer being managed by Django. There's no using the built in Django Admin view and nor is there any need for migrations; though I do wish that this could be the case. Django's Models and Forms help developers build more intuitive, versatile applications.
+The next step is to comment out all the Data Base configuration in the `setting.py` file. The application views in this project connect directly to the database and is no longer being managed by Django. There's no using the built in Django Admin view and nor is there any need for migrations; though I do wish that this could be the case. Django's Models and Forms help developers build more intuitive, versatile applications.  I also found that Djongo which is a SQL to mongodb query transpiler, doesn't work with this version of Django.
 
 ```python
 # DATABASES = {
