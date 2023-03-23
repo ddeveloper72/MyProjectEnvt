@@ -20,7 +20,13 @@ import environ
 env = environ.Env()
 environ.Env.read_env()
 
-
+# # Switch Debug between True and False
+if os.environ.get('DEVELOPMENT'):
+    development = True
+    print("Running in development mode")
+else:
+    development = False
+    print("Running in production mode")
 # import pymongo
 
 # Import certifi for mongo url
@@ -36,7 +42,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = 'django-insecure-n+h$@u*e7t&qpbw2o_)gbv9)rab8$*sp5o2-1isp7+b#@y$vx7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = development
 
 ALLOWED_HOSTS = ['localhost',
                  '127.0.0.1',
